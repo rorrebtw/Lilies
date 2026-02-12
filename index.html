@@ -85,42 +85,66 @@ body {
 /* FLOR */
 .flower {
     position: absolute;
-    top: -90px;
+    top: -110px;
     left: 50%;
     transform: translateX(-50%);
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
 }
 
-/* PÉTALAS */
+/* PÉTALAS MAIS REALISTAS */
 .petal {
     position: absolute;
-    width: 70px;
-    height: 140px;
-    top: 30px;
-    left: 65px;
-    background: radial-gradient(circle at top, #ffd6ea, #ff5fa2);
-    border-radius: 50% 50% 40% 40%;
+    width: 60px;
+    height: 180px;
+    top: 20px;
+    left: 80px;
+    background: linear-gradient(to top, #ff4f9a, #ffd6ea);
+    border-radius: 50% 50% 20% 20%;
     transform-origin: bottom center;
     transform: scaleY(0);
     animation: openPetal 1.4s ease forwards;
-    filter: drop-shadow(0 0 10px rgba(255,105,180,.4));
+    filter: drop-shadow(0 0 14px rgba(255,105,180,.45));
 }
 
-/* CENTRO */
+/* PISTILO CENTRAL */
 .center {
     position: absolute;
-    width: 16px;
-    height: 60px;
-    background: linear-gradient(#ffd966, #ffae00);
+    width: 6px;
+    height: 85px;
+    background: linear-gradient(#ffe066, #ffae00);
     top: 80px;
-    left: 92px;
-    border-radius: 10px;
+    left: 107px;
+    border-radius: 6px;
     opacity: 0;
     animation: fadeIn 1s ease forwards;
 }
 
-/* ================= MATINHOS ================= */
+/* ESTAMES */
+.stamen {
+    position: absolute;
+    width: 3px;
+    height: 90px;
+    background: linear-gradient(to top, #ffe066, #ffcc33);
+    top: 85px;
+    left: 108px;
+    transform-origin: bottom center;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+/* ANTERAS */
+.anther {
+    position: absolute;
+    width: 12px;
+    height: 16px;
+    background: linear-gradient(#a35a00, #5c2f00);
+    border-radius: 50%;
+    top: -12px;
+    left: -4.5px;
+}
+
+/* MATINHOS */
 .grass {
     position: absolute;
     bottom: 0;
@@ -163,7 +187,6 @@ body {
 <script>
 const scene = document.getElementById("scene");
 
-/* LÍRIOS */
 const lilies = [
     { x: 50, scale: 1.2, delay: 0 },
     { x: 22, scale: 0.9, delay: 1 },
@@ -187,6 +210,13 @@ lilies.forEach(l => {
                 ${[0,60,120,180,240,300].map((r,i)=>`
                     <div class="petal" style="--r:${r}deg; animation-delay:${l.delay + 4 + i*0.25}s"></div>
                 `).join("")}
+
+                ${[20,80,140,200,260,320].map((r,i)=>`
+                    <div class="stamen" style="transform: rotate(${r}deg); animation-delay:${l.delay + 5.2 + i*0.15}s">
+                        <div class="anther"></div>
+                    </div>
+                `).join("")}
+
                 <div class="center" style="animation-delay:${l.delay + 5.8}s"></div>
             </div>
         </div>
@@ -194,7 +224,7 @@ lilies.forEach(l => {
     scene.appendChild(lily);
 });
 
-/* ================= MATINHOS VERDES (NATURAIS) ================= */
+/* MATINHOS */
 for (let i = 0; i < 90; i++) {
     const g = document.createElement("div");
     g.className = "grass";
@@ -227,7 +257,6 @@ for (let i = 0; i < 70; i++) {
     document.body.appendChild(p);
 }
 
-/* CLIQUE = REINICIAR */
 document.body.addEventListener("click", () => location.reload());
 </script>
 
